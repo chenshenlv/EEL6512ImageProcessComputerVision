@@ -1,7 +1,7 @@
-[hist_norm,hist]=myhist('flower.pgm');
+% [hist_norm,hist]=myhist('flower.pgm');
 [ histeq_norm ] = myhisteq( 'flower.pgm' );
-    
-            
+  [quant_output] = myquantize( 'flower.pgm',256 );
+          
 
 % as=[1 1 3 3 5 5 8 8];
 % bhis=[2 1 6 4 3 8 7 9];
