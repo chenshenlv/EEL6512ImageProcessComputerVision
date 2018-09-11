@@ -2,6 +2,7 @@ function [ hist_norm,hist ] = myhist( image_name )
 %hist_norm returns normalized histgram
 %hist returns histgram
 p1=imread(image_name);
+
 hist=zeros(256,1);%creat a vector to store histgram
 for i=1:size(p1,1)
     for j=1:size(p1,2)
