@@ -16,7 +16,7 @@ for i=1:size(p1,1)
 end 
 figure();
 hist_norm=hist/(size(p1,1)*size(p1,2));
-bar((0:1:255),hist_norm)
+bar(1:1:256,hist_norm,0.4)
 xlabel('Intensity level')
 ylabel('Probability')
 title('Normalized Histogram')
@@ -54,7 +54,7 @@ end
 
 histeq_norm=histeq/(size(p1,1)*size(p1,2));
 figure();
-bar((0:1:255),histeq_norm)
+bar(1:1:256,histeq_norm)
 xlabel('sk')
 ylabel('Probability of sk')
 title('Normalized Equalized Histogram')
