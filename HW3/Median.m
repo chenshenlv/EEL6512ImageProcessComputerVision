@@ -1,6 +1,6 @@
 function [median_filtered] = Median(filter_size,input_image)
-%UNTITLED4 Summary of this function goes here
-%   Detailed explanation goes here
+%Define a Median filter. filter_size is the size of filter, if a filter
+%is 3X3 then the filter_size is 3.
 I=input_image;
 m=filter_size; %filter size
 [row,col]=size(I);
@@ -17,6 +17,7 @@ for i=1+(m-1)/2:row-(m-1)/2 %scan image row
     end
 end
 figure()
-imshow(uint8(median_filtered));       
+imshow(uint8(median_filtered));
+title(['Median filter with ',num2str(filter_size),'x',num2str(filter_size),' kernel'])
 end
 
