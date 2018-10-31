@@ -1,12 +1,13 @@
 I=importdata('pic1.ppm');
 imshow (I(:,:,:));
+I_hsv=rgb2hsv(I);
 %compute the histogram
-n_r=imhist(I(:,:,1));
-n_g=imhist(I(:,:,2));
-n_b=imhist(I(:,:,3));
-n=[n_r,n_g,n_b];
+n_h=imhist(uint8(round(I_hsv(:,:,1).*255)));
+n_s=imhist(uint8(round(I_hsv(:,:,2).*255)));
+n_v=imhist(uint8(round(I_hsv(:,:,3).*255)));
+n=[n_h,n_s,n_v];
 %sum up all histogram value
-N=sum(n_r);
+N=sum(n_h);
 %compute histogram component probability:
 for i=1:256
     p(i,:)=n(i,:)/N;
@@ -24,29 +25,29 @@ for k=2:255
 %     sig_b=(mG.*P1-m).^2./P1.*([1,1,1]-P1); %compute variance between class
     if sig_b(1,1)>=max(1,1)
         max(1,1)=sig_b(1,1);
-        threshold_r=k-1;
+        threshold_h=k-1;
     end
     if sig_b(1,2)>=max(1,2)
         max(1,2)=sig_b(1,2);
-        threshold_g=k-1;
+        threshold_s=k-1;
     end
     if sig_b(1,3)>=max(1,3)
         max(1,3)=sig_b(1,3);
-        threshold_b=k-1;
+        threshold_v=k-1;
     end
 end
 I_bw=false(size(I,1),size(I,2));
 for row=1:size(I,1)
     for col=1:size(I,2)
-        if  double(I(row,col,1))>threshold_r && ...
-            double(I(row,col,2))>threshold_g || ...
-            double(I(row,col,3))>threshold_b
+        if  (I_hsv(row,col,1))>threshold_h/255 && ...
+            (I_hsv(row,col,2))>threshold_s/255 && ...
+            (I_hsv(row,col,3))>threshold_v/255              
                 I_bw(row,col,:)=1;
          
         end
     end
 end
-SE1=strel('disk',21);
+SE1=strel('disk',9);
 SE2=strel('disk',6);
 opening=Openning(I_bw,SE1.Neighborhood);
 erod=Erosion(opening,SE2.Neighborhood);
@@ -62,7 +63,6 @@ for i=1:size(r,1)
 end
 figure();
 imshow (I);
-              
                 
             
 

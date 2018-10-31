@@ -4,7 +4,7 @@ function [ output_im ] = Closing( input_im,se )
 I=input_im;
 Dil=Dilation(I,se);
 output_im=Erosion(Dil,se);
-figure,imshow(output_im);
+% figure,imshow(output_im);
 
 end
 
